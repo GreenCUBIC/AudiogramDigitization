@@ -1,0 +1,17 @@
+# Directories
+**/__pycache__
+**/data
+**/dataset
+!digitizer/yolov5/data
+**/node_modules
+**/environment
+**/runs
+**/temp
+**/slurm*
+**/database
+
+# Junk files
+.DS_Store
+
+# Secret files
+.env

@@ -1,0 +1,9 @@
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+train: models/audiograms/dataset/images/train/
+val: models/audiograms/dataset/images/validation/
+
+# number of classes
+nc: 1
+
+# class names
+names: ["AUDIOGRAM"]

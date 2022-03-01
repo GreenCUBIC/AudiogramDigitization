@@ -1,0 +1,32 @@
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+val: data/labels/test/images/
+
+
+# number of classes
+nc: 21
+
+# class names
+names: [
+#frequencies
+    "250",
+    ".25",
+    "500",
+    ".5",
+    "1000",
+    "1",
+    "1K",
+    "2000",
+    "2",
+    "2K",
+    "4000",
+    "4",
+    "4K",
+    "8000",
+    "8",
+    "8K",
+    "20",
+    "40",
+    "60",
+    "80",
+    "100",
+]

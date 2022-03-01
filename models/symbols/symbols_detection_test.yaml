@@ -1,0 +1,17 @@
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+val: data/symbols/test/images/
+
+# number of classes
+nc: 8
+
+# class names
+names: [
+        "AIR_UNMASKED_LEFT",
+        "AIR_UNMASKED_RIGHT",
+        "AIR_MASKED_LEFT",
+        "AIR_MASKED_RIGHT",
+        "BONE_UNMASKED_LEFT",
+        "BONE_UNMASKED_RIGHT",
+        "BONE_MASKED_LEFT",
+        "BONE_MASKED_RIGHT"
+]
