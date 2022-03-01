@@ -1,0 +1,27 @@
+.cornerCircle {
+  fill: red;
+  stroke: red;
+}
+
+.cornerCoordinatesContainer {
+  background: white;
+  font-size: 0.8rem;
+  padding: 5px;
+  border: 1px solid black;
+  width: 90%;
+}
+
+.coordinateInput {
+  width: 40%;
+}
+
+.foreignObj {
+  width: 160px;
+  height: 60px;
+}
+
+.cornerLabel {
+  fill: red;
+  font-size: 0.7rem;
+  user-select: none;
+}

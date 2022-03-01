@@ -1,0 +1,17 @@
+.audiogramBoundingBox {
+  fill: transparent;
+  stroke-width: 2px;
+  stroke: red;
+}
+
+.deleteBox {
+  user-select: none;
+  cursor: pointer;
+}
+
+.deleteBox:hover {
+  circle {
+    stroke: black;
+    fill: white;
+  }
+}

@@ -1,0 +1,19 @@
+.container {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.labelTypeSelector {
+  width: 50%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
+}
+
+.labelButton {
+  width: 50px;
+  border: 1px solid black;
+}

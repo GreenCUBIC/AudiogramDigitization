@@ -1,0 +1,72 @@
+$cubic-blue: rgb(39, 40, 104);
+
+// Cursors
+$precision-cursor: url(../assets/cursors/png/precision-cursor.png), auto;
+$cross-cursor: url(../assets/cursors/png/cross-cursor.png), auto;
+$circle-cursor: url(../assets/cursors/png/circle-cursor.png), auto;
+$triangle-cursor: url(../assets/cursors/png/triangle-cursor.png), auto;
+$square-cursor: url(../assets/cursors/png/square-cursor.png), auto;
+$left-angled-bracket-cursor: url(../assets/cursors/png/left-angled-bracket-cursor.png),
+  auto;
+$right-angled-bracket-cursor: url(../assets/cursors/png/right-angled-bracket-cursor.png),
+  auto;
+$left-square-bracket-cursor: url(../assets/cursors/png/left-square-bracket-cursor.png),
+  auto;
+$right-square-bracket-cursor: url(../assets/cursors/png/right-square-bracket-cursor.png),
+  auto;
+
+.instructionsContainer {
+  text-align: left;
+  min-height: 100px;
+  width: 100%;
+  background-color: $cubic-blue;
+  padding: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.iconWrapper {
+  margin: 15px;
+  padding: 5px;
+  cursor: pointer;
+  border: 2px solid white;
+  border-radius: 4px;
+  svg path {
+    fill: white;
+  }
+}
+
+.iconWrapper:hover {
+  svg path {
+    fill: $cubic-blue;
+  }
+  background: white;
+  border-color: $cubic-blue;
+}
+
+.instructionsTitle {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  margin: 0px;
+}
+
+.instructionsDetails {
+  margin: 0px;
+  max-width: 700px;
+  font-size: 0.7rem;
+  color: white;
+}
+
+.commentInput {
+  width: 500px;
+}
+
+.noMargin {
+  margin: 0px;
+}

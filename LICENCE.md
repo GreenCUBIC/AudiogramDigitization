@@ -1,4 +1,4 @@
-Copyright (c) 2020 Carleton University Biomedical Informatics Collaboratory
+Copyright (c) 2022 Carleton University Biomedical Informatics Collaboratory
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,0 +1,13 @@
+.symbolWrapper {
+  padding: 10px;
+  border: 2px solid black;
+  cursor: pointer;
+
+  &:hover {
+    background-color: black;
+  }
+}
+
+.selected {
+  background-color: grey;
+}
