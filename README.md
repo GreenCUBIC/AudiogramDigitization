@@ -96,6 +96,12 @@ The JSON files output by the algorithm are a simple list of threshold objects th
 ]
 ```
 
+You can visually inspect the digitized audiogram as a PNG image by running the script `plot_audiogram.py`:
+
+```
+$ ./src/plot_audiogram.py -i <path_to_digitized_audiogram_json> -o <path to output image>
+```
+
 ## (Re-)training the object detection models
 
 The models used in this algorithm are all
