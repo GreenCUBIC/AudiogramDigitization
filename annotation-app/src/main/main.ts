@@ -50,7 +50,6 @@ ipcMain.handle("load-report", (event) => {
 })
 
 ipcMain.handle("save-annotation", (event, report, annotation) => {
-  console.log(report)
   writeFileSync(report.filepath.split(".")[0] + ".json", JSON.stringify(annotation))
   return null
 })

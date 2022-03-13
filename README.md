@@ -5,7 +5,28 @@
 - *Francois Charih* (Team Leader) - francoischarih@sce.carleton.ca - Carleton University
 - *James R. Green* (Principal Investigator) - jrgreen@sce.carleton.ca - Carleton University
 
-## Before launching any command
+## Summary
+
+This software, developed in collaboration with the [Workplace Safety and
+Insurance Board](https://www.wsib.ca/en), was designed to facilitate the
+digitization of audiology reports, in particular the audiograms contained
+therein.
+
+This repository contains the source code for:
+
+1. **Audiogram digitization algorithm**: a set of Python scripts that implement
+the digitization algorithm using deep convolutional neural networks.
+
+2. **Audiology report annotation interface**: An electron-based desktop
+application that allows for the rapid annotation of audiograms contained within
+audiology reports. These annotations can be used to train deep convolutional
+neural networks to detect the elements that make up the audiogram, and that are
+needed for the computer to comprehend the audiogram.
+
+## Audiogram digitization algorithm
+
+We recommend using Python 3.9 to run the algorithm as this is the version that we
+tested.
 
 Before using any of this software, you must install the dependencies in a virtual environment
 and activate that virtual environment.
@@ -19,15 +40,25 @@ $ pip3 install -r requirements.txt
 ```
 
 This will create the virtual environment in the directory `environment`. This only
-needs to be done once.
+needs to be done once. (If you are warned that the versions of torch or torchvision are not
+available, then, perhaps you are not using Python 3.9.)
 
 Then, to run any command, you must ensure that this environment is activated
-by running:
+by running (on macOS/Linux):
 
 ```
 $ source environment/bin/activate
 ```
 
+or on Windows
+
+```
+C:\> environment\Scripts\activate.bat
+```
+
+⚠️⚠️⚠️⚠️⚠️⚠️
+**Important:** You will need to fix a bug in the torch library by changing `F.hardswish(input, self.inplace)` to `F.hardswish(input)` in `environment/lib/python3.9/site-packages/torch/nn/modules/activation.py`.
+⚠️⚠️⚠️⚠️⚠️⚠️
 ## Running the digitizer (in the console)
 
 To run the digitizer, do:
@@ -39,43 +70,44 @@ $ ./src/digitize_report.py -i <path to image or directory with images> -o <direc
 The resulting JSON files have the same basename as the input image,
 but with the `.json` extension.
 
-Add the `-a` flag if you want to produce a partial annotation (without corners)
-instead of a thresholds list.
-
-## Re-training the models
-
-It may be worth retraining the models periodically as new annotations become
-available.
-
-### Collect the data for training
-
-You can put the data in a directory of the form.
+The JSON files output by the algorithm are a simple list of threshold objects that look as follows:
 
 ```
-data
-|----images
-|------| <put .jpg images here>
-|----annotations
-|------| <put JSON format annotations here>
+[
+    {
+        "ear": "left",
+        "conduction": "air",
+        "masking": false,
+        "measurementType": "AIR_UNMASKED_LEFT",
+        "frequency": 6000,
+        "threshold": 60,
+        "response": true
+    },
+    {
+        "ear": "left",
+        "conduction": "air",
+        "masking": false,
+        "measurementType": "AIR_UNMASKED_LEFT",
+        "frequency": 3000,
+        "threshold": 60,
+        "response": true
+    },
+    ...
+]
 ```
 
-You will provide the path to this directory when running the training script.
+## (Re-)training the object detection models
 
-### Training the models
+The models used in this algorithm are all
+[YoloV5](https://github.com/ultralytics/yolov5) models. There is an [excellent
+tutorial](https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data) on how
+to train a YOLOv5 model on custom data. You may download and use the annotation
+application to collect annotations in JSON format and use these annotations to
+(re)-train the object detectors.
 
-You can easily train the detectors using the `scripts/train_model.py` script (make sure that the
-virtual environment is activated). Pass the `-h` flag for instructions.
+**Note that you will need to convert the locations of the objects in the JSON
+annotation file to the YOLO format. This is well described in the tutorial.**
 
-Running the script will train the detection models and store the resulting
-training data (neural network weights) in the directories `models/<audiograms|labels|symbols>/latest`
-depending on which detectors are trained.
-
-To revert back to a previous model, you can simply copy the content of the model
-to the `models/<audiograms|labels|symbols>/latest` directory:
-
-```
-$ rm -rf models/<audiograms|labels|symbols>/latest
-$ cp -r models/<audiograms|labels|symbols>/<model_to_restore> models/<audiograms|labels|symbols>/latest
-```
-
-**IMPORTANT: IMAGES ARE ASSUMED TO BE IN .jpg format.**
+Once the models are trained, you can simply drop the weights (`best.pt`) in the appropriate
+location, i.e. in `models/<audiograms|symbols|labels>/latest/weights`, depending on whether
+it is the model trained to detect audiograms, symbols or axis labels.
