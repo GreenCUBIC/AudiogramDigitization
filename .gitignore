@@ -9,7 +9,7 @@
 **/temp
 **/slurm*
 **/database
-**/release
+**/release/build
 
 # Junk files
 .DS_Store
