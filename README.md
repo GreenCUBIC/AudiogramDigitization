@@ -23,6 +23,7 @@ audiology reports. These annotations can be used to train deep convolutional
 neural networks to detect the elements that make up the audiogram, and that are
 needed for the computer to comprehend the audiogram.
 
+- Demo: https://huggingface.co/spaces/weiren119/AudiogramDigitization
 ## Audiogram digitization algorithm
 
 We recommend using Python 3.9 to run the algorithm as this is the version that we
