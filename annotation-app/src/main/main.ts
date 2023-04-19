@@ -13,9 +13,13 @@ import { app, BrowserWindow, shell, ipcMain, dialog } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import {
+  extractThresholdsFromAnnotation,
+  thresholdListAsCSVString,
+} from './convert';
 import { resolveHtmlPath } from './util';
 import { readFileSync, writeFileSync } from 'fs';
-import sizeOf from "image-size";
+import sizeOf from 'image-size';
 
 export default class AppUpdater {
   constructor() {
@@ -27,32 +31,39 @@ export default class AppUpdater {
 
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.handle("load-report", (event) => {
-  const filepath = dialog.showOpenDialogSync({ 
+ipcMain.handle('load-report', (event) => {
+  const filepath = dialog.showOpenDialogSync({
     properties: ['openFile'],
-    filters: [
-      { name: 'Images', extensions: ['jpg', 'png', 'gif'] }
-    ]
-  })[0]
+    filters: [{ name: 'Images', extensions: ['jpg', 'png', 'gif'] }],
+  })[0];
 
-  const base64 = readFileSync(filepath, "base64");
+  const base64 = readFileSync(filepath, 'base64');
   var img = Buffer.from(base64.split(';base64,').pop(), 'base64');
-  const dimensions = sizeOf(img)
+  const dimensions = sizeOf(img);
 
   const report = {
     width: dimensions.width,
     height: dimensions.height,
     filepath,
     base64,
-  }
+  };
 
-  return report
-})
+  return report;
+});
 
-ipcMain.handle("save-annotation", (event, report, annotation) => {
-  writeFileSync(report.filepath.split(".")[0] + ".json", JSON.stringify(annotation))
-  return null
-})
+ipcMain.handle('save-annotation', (event, report, annotation) => {
+  writeFileSync(
+    report.filepath.split('.')[0] + '.json',
+    JSON.stringify(annotation)
+  );
+
+  // TODO Save audiogram values
+  const thresholdsList = extractThresholdsFromAnnotation(annotation);
+  const csvContent = thresholdListAsCSVString(thresholdsList);
+  writeFileSync(report.filepath.split('.')[0] + '.csv', csvContent);
+
+  return null;
+});
 
 ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
