@@ -118,3 +118,23 @@ annotation file to the YOLO format. This is well described in the tutorial.**
 Once the models are trained, you can simply drop the weights (`best.pt`) in the appropriate
 location, i.e. in `models/<audiograms|symbols|labels>/latest/weights`, depending on whether
 it is the model trained to detect audiograms, symbols or axis labels.
+
+## Docker
+
+
+1. Create a directory `data` and two subdirectories `data/inputs` and `data/outputs`.
+
+2. Place the images in `data/inputs`.
+
+3. Build the Docker container:
+
+```
+docker build -t digitizer .
+```
+
+4. Run the digitizer:
+
+```
+docker run -v $(pwd)/data:/app/data digitizer src/digitize_report.py -i data/inputs -o data/outputs
+```
+
